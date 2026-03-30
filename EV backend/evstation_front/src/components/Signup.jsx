@@ -1,141 +1,124 @@
-import axios from 'axios'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Signup() {
-    const [name,setname]=useState('')
-    const [email,setemail]=useState('')
-    const [password,setpassword]=useState('')
-    const [phone,setphone]=useState()
-    const [address,setaddress]=useState('')
-    const [photo,setphoto]=useState('')
-    
-    const nav=useNavigate()
-    const sign=async(e)=>{
-        e.preventDefault()
-        await axios.post('http://localhost:4000/login/signup',{name,email,password,phone,address,photo},{headers:{"Content-Type":"multipart/form-data"}})
-        nav()
 
+ 
+  const [name, setname] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const nav = useNavigate();
+
+  // signup function
+  const sign = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post(
+        "http://localhost:4000/login/signup",
+        { name, email, password });
+
+      alert("Account created successfully 🎉");
+      nav("/login");
+
+    } catch (err) {
+      alert(err.response?.data?.message || "Signup failed");
     }
+  };
+
   return (
-      <div className="min-h-screen flex items-center justify-center px-4 
-bg-gradient-to-br from-[#02141C] via-[#062A36] to-[#02141C]">
+    <div className="min-h-screen flex items-center justify-center px-4 
+    bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364]">
 
-  {/* Signup Card */}
-  <div className="w-full max-w-2xl backdrop-blur-lg bg-white/10 
-  border border-white/20 rounded-2xl shadow-2xl p-8 text-white">
+      {/* Signup Card */}
+      <div className="w-[360px] p-8 rounded-3xl 
+      bg-white/10 backdrop-blur-2xl border border-white/20 
+      shadow-[0_10px_40px_rgba(0,0,0,0.4)] text-white">
 
-    <h2 className="text-3xl font-bold text-center mb-2">
-      Create Account
-    </h2>
+        <h2 className="text-3xl font-bold text-center mb-2">
+          Create Account
+        </h2>
 
-    <p className="text-center text-gray-300 mb-8">
-      Join EV Booking to reserve charging slots easily.
-    </p>
+        <p className="text-center text-sm text-white/60 mb-6">
+          Join and start your EV experience
+        </p>
 
-    {/* Form */}
-    <form className="space-y-2" onSubmit={sign}>
+        <form className="space-y-4" onSubmit={sign}>
 
-      {/* Full Name */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-        <label className="text-gray-300">Full Name</label>
-        <input
-          type="text"
-          className="md:col-span-2 w-full px-4 py-3 bg-transparent 
-          border border-white/30 rounded-lg text-white 
-          focus:ring-2 focus:ring-cyan-400 outline-none"
-          placeholder="Enter your name"
-          onChange={(e) => setname(e.target.value)}
-        />
-      </div>
+          {/* Name */}
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full px-4 py-3 rounded-xl bg-white/20 
+            focus:ring-2 focus:ring-cyan-400 outline-none"
+            onChange={(e) => setname(e.target.value)}
+            required
+          />
 
-      {/* Email */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-        <label className="text-gray-300">Email</label>
-        <input
-          type="email"
-          className="md:col-span-2 w-full px-4 py-3 bg-transparent 
-          border border-white/30 rounded-lg text-white 
-          focus:ring-2 focus:ring-cyan-400 outline-none"
-          placeholder="Enter your email"
-          onChange={(e) => setemail(e.target.value)}
-        />
-      </div>
+          {/* Email */}
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full px-4 py-3 rounded-xl bg-white/20 
+            focus:ring-2 focus:ring-cyan-400 outline-none"
+            onChange={(e) => setemail(e.target.value)}
+            required
+          />
 
-      {/* Password */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-        <label className="text-gray-300">Password</label>
-        <input
-          type="password"
-          className="md:col-span-2 w-full px-4 py-3 bg-transparent 
-          border border-white/30 rounded-lg text-white 
-          focus:ring-2 focus:ring-cyan-400 outline-none"
-          placeholder="Create a password"
-          onChange={(e) => setpassword(e.target.value)}
-        />
-      </div>
+          {/* Password */}
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              className="w-full px-4 py-3 pr-12 rounded-xl bg-white/20 
+              focus:ring-2 focus:ring-cyan-400 outline-none"
+              onChange={(e) => setpassword(e.target.value)}
+              required
+            />
 
-      {/* Phone */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
-        <label className="text-gray-300 mb-1">Phone</label>
-        <input
-          type="number"
-          className="md:col-span-2 w-full px-4 py-3 bg-transparent 
-          border border-white/30 rounded-lg text-white 
-          focus:ring-2 focus:ring-cyan-400 outline-none"
-          placeholder="Enter your number"
-          onChange={(e) => setphone(e.target.value)}
-        />
-      </div>
+            {/* show/hide */}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-3 text-white/70"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
 
-      {/* Address */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-        <label className="text-gray-300">Address</label>
-        <input
-          type="text"
-          className="md:col-span-2 w-full px-4 py-3 bg-transparent 
-          border border-white/30 rounded-lg text-white 
-          focus:ring-2 focus:ring-cyan-400 outline-none"
-          placeholder="Enter your address"
-          onChange={(e) => setaddress(e.target.value)}
-        />
-      </div>
+          {/* Submit */}
+          <button
+            className="w-full py-3 rounded-xl font-semibold 
+            bg-gradient-to-r from-cyan-500 to-blue-500 
+            hover:scale-105 transition"
+          >
+            Create Account
+          </button>
 
-      {/* Photo */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-        <label className="text-gray-300">Photo</label>
-        <input
-          type="file"
-          className="md:col-span-2 w-full px-4 py-2 bg-transparent 
-          border border-white/30 rounded-lg text-white 
-          focus:ring-2 focus:ring-cyan-400 outline-none"
-          onChange={(e) => setphoto(e.target.files[0])}
-        />
-      </div>
-
-      {/* Button */}
-      <button
-        type="submit"
-        className="w-full mt-6 bg-cyan-500 hover:bg-cyan-600 
-        text-white py-3 rounded-lg font-semibold transition"
-      >
-        Create Account
-      </button>
-
-    </form>
-
-    {/* Login Link */}
-    <p className="text-center text-gray-300 mt-6">
-      Already have an account?{" "}
-      <a href="/login" className="text-cyan-400 font-semibold hover:underline">
-        Login
-      </a>
-    </p>
-
-  </div>
+        </form>
+        {/* Divider */}
+<div className="flex items-center gap-2 my-4">
+  <div className="flex-1 h-px bg-white/20"></div>
+  <span className="text-xs text-white/50">OR </span>
+  <div className="flex-1 h-px bg-white/20"></div>
 </div>
 
-  )
+        {/* Login Link */}
+        <p className="text-center mt-4 text-sm text-white/70">
+          Already have an account?{" "}
+          <Link to="/login" className="text-cyan-400 font-semibold hover:underline">
+            Login
+          </Link>
+        </p>
+
+      </div>
+    </div>
+  );
 }
 
-export default Signup
+export default Signup;

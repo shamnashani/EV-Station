@@ -10,3 +10,4 @@ const paymentschema=new mongo.Schema({
 },{timestamps:true}
 )
 const payment=mongo.model('payment',paymentschema)
+module.exports=payment
