@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd evstation_front && npm start",
-    "start": "concurrently \"nodemon evApp.js\" \"npm run client\""  },
+    "start": "concurrently \"nodemon evApp.js\" \"npm run client\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "express": "^5.2.1",
     "express-session": "^1.18.2",
     "google-auth-library": "^10.6.2",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^9.0.0",
     "multer": "^2.0.2",
