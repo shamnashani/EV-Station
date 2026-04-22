@@ -26,7 +26,7 @@ const UserHome = () => {
         const token = localStorage.getItem("token")
 
         const bookingRes = await axios.get(
-          "http://localhost:4000/booking/booking-count",
+          "https://ev-station-1-tbha.onrender.com/booking/booking-count",
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -61,7 +61,7 @@ const UserHome = () => {
 
 
           const res = await axios.get(
-            `http://localhost:4000/booking/nearby-stations?lat=${lat}&lng=${lng}`
+            `https://ev-station-1-tbha.onrender.com/booking/nearby-stations?lat=${lat}&lng=${lng}`
           )
 
           setStationCount(res.data.count)
@@ -86,7 +86,7 @@ const UserHome = () => {
         const token = localStorage.getItem("token")
 
         const res = await axios.get(
-          "http://localhost:4000/booking/latest",
+          "https://ev-station-1-tbha.onrender.com/booking/latest",
           {
             headers: {
               Authorization: `Bearer ${token}`

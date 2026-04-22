@@ -24,7 +24,7 @@ const MyBookings = () => {
         return;
       }
 
-      const res = await axios.get("http://localhost:4000/booking/Vbooking", {
+      const res = await axios.get("https://ev-station-1-tbha.onrender.com/booking/Vbooking", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -40,7 +40,7 @@ const MyBookings = () => {
   const cancelBooking = async (id) => {
     try {
       const res = await axios.put(
-        `http://localhost:4000/booking/cancel/${id}`,
+        `https://ev-station-1-tbha.onrender.com/booking/cancel/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -64,7 +64,7 @@ const MyBookings = () => {
   const completeCharging = async (id) => {
     try {
       await axios.put(
-        `http://localhost:4000/booking/complete/${id}`,
+        `https://ev-station-1-tbha.onrender.com/booking/complete/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

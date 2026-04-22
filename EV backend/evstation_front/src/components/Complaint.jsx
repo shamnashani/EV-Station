@@ -25,7 +25,7 @@ const Complaint = () => {
     const fetchLatestBooking = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/booking/latest",
+          "https://ev-station-1-tbha.onrender.com/booking/latest",
           {
             headers: { Authorization: `Bearer ${token}` }
           }
@@ -59,7 +59,7 @@ const Complaint = () => {
       }
 
       await axios.post(
-        "http://localhost:4000/com/create",
+        "https://ev-station-1-tbha.onrender.com/com/create",
         { category, message, stationName },
         {
           headers: { Authorization: `Bearer ${token}` }

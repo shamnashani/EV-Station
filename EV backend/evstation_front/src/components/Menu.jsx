@@ -29,7 +29,7 @@ const Menu = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await axios.get("http://localhost:4000/booking/Vbooking", {
+      const res = await axios.get("https://ev-station-1-tbha.onrender.com/booking/Vbooking", {
         headers: { Authorization: `Bearer ${token}` },
       });
 

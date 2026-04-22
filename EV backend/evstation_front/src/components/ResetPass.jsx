@@ -15,7 +15,7 @@ function ResetPass() {
 
     try {
       const res = await axios.post(
-        `http://localhost:4000/login/reset-password/${token}`,
+        `https://ev-station-1-tbha.onrender.com/login/reset-password/${token}`,
         { password }
       );
 

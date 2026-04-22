@@ -18,7 +18,7 @@ const StationList = () => {
 
     const fetchStations = async () => {
 
-      const res = await axios.get("http://localhost:4000/station/Sview")
+      const res = await axios.get("https://ev-station-1-tbha.onrender.com/station/Sview")
 
       // save stations to state
       setStations(res.data)

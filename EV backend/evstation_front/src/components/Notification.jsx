@@ -23,7 +23,7 @@ const NotificationPage = () => {
       const token = localStorage.getItem("token")
 
       const res = await axios.get(
-        "http://localhost:4000/booking/Vbooking",
+        "https://ev-station-1-tbha.onrender.com/booking/Vbooking",
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -70,7 +70,7 @@ const NotificationPage = () => {
   try {
 
     const res = await axios.get(
-      "http://localhost:4000/booking/Vbooking",
+      "https://ev-station-1-tbha.onrender.com/booking/Vbooking",
       {
         headers: { Authorization: `Bearer ${token}` }
       }

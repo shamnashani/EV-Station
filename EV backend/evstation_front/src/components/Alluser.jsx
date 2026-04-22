@@ -12,7 +12,7 @@ function ManageUsers() {
       const token = localStorage.getItem("token")
 
       const res = await axios.get(
-        "http://localhost:4000/admin/allUser",
+        "https://ev-station-1-tbha.onrender.com/admin/allUser",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -39,7 +39,7 @@ function ManageUsers() {
     try {
 
       await axios.put(
-        `http://localhost:4000/admin/active/${id}`,
+        `https://ev-station-1-tbha.onrender.com/admin/active/${id}`,
         {},
         {
           headers: {
@@ -63,7 +63,7 @@ function ManageUsers() {
     try {
 
       await axios.put(
-        `http://localhost:4000/admin/inactive/${id}`,
+        `https://ev-station-1-tbha.onrender.com/admin/inactive/${id}`,
         {},
         {
           headers: {

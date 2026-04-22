@@ -8,7 +8,7 @@ const MyComplaints = () => {
   const fetchComplaints = async () => {
     try {
       const token = localStorage.getItem("token")
-      const res = await axios.get("http://localhost:4000/com/mycomplaints", {
+      const res = await axios.get("https://ev-station-1-tbha.onrender.com/com/mycomplaints", {
         headers: { Authorization: `Bearer ${token}` }
       })
       setComplaints(res.data)
@@ -25,7 +25,7 @@ const MyComplaints = () => {
   const withdrawComplaint = async (id) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.put(`http://localhost:4000/com/withdraw/${id}`, {}, {
+      await axios.put(`https://ev-station-1-tbha.onrender.com/com/withdraw/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       })
       alert("Complaint withdrawn successfully")

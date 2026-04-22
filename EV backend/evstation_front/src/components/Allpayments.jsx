@@ -12,7 +12,7 @@ function Allpayments() {
         const token = localStorage.getItem("token")
 
         const res = await axios.get(
-          "http://localhost:4000/admin/allpayments",
+          "https://ev-station-1-tbha.onrender.com/admin/allpayments",
           {
             headers: { Authorization: `Bearer ${token}` }
           }

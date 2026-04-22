@@ -99,7 +99,7 @@ const BookingPage = () => {
     try {
 
       const res = await axios.post(
-        "http://localhost:4000/booking/booking",
+        "https://ev-station-1-tbha.onrender.com/booking/booking",
         bookingData,
         {
           headers: {

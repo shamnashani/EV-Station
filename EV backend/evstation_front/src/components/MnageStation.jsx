@@ -18,7 +18,7 @@ function ManageStation() {
       const token = localStorage.getItem("token")
 
       const res = await axios.get(
-        "http://localhost:4000/admin/allStation",
+        "https://ev-station-1-tbha.onrender.com/admin/allStation",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -53,7 +53,7 @@ function ManageStation() {
 
     try {
 
-      await axios.delete(`http://localhost:4000/admin/dlt/${id}`,
+      await axios.delete(`https://ev-station-1-tbha.onrender.com/admin/dlt/${id}`,
         {headers:{
           Authorization:`Bearer ${token}`
         }}

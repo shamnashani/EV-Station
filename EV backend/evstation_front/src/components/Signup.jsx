@@ -20,7 +20,7 @@ function Signup() {
 
     try {
       await axios.post(
-        "http://localhost:4000/login/signup",
+        "https://ev-station-1-tbha.onrender.com/login/signup",
         { name, email, password });
 
       alert("Account created successfully 🎉");

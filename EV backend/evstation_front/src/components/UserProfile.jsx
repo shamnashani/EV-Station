@@ -17,7 +17,7 @@ const UserProfile = () => {
         }
 
         const res = await axios.get(
-          "http://localhost:4000/user/userprofile",
+          "https://ev-station-1-tbha.onrender.com/user/userprofile",
           {
             headers: { Authorization: `Bearer ${token}` }
           }

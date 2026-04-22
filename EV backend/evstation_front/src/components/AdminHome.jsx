@@ -28,7 +28,7 @@ const AdminHome = () => {
 
         // get token from localStorage
       const token = localStorage.getItem("token");
-    const res=await axios.get('http://localhost:4000/admin/getAll',
+    const res=await axios.get('https://ev-station-1-tbha.onrender.com/admin/getAll',
       {
         headers:{
           Authorization:`Bearer ${token}`

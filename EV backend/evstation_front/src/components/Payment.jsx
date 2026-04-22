@@ -33,7 +33,7 @@ const PaymentPage = () => {
       const token = localStorage.getItem("token")
 
       const res = await axios.get(
-        `http://localhost:4000/booking/book/${state.bookingId}`,
+        `https://ev-station-1-tbha.onrender.com/booking/book/${state.bookingId}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -70,7 +70,7 @@ handler: async function (response) {
 
     // payment
     await axios.post(
-      "http://localhost:4000/pay/pay",
+      "https://ev-station-1-tbha.onrender.com/pay/pay",
       {
         bookingId: booking._id,
         paymentId: response.razorpay_payment_id,
@@ -82,7 +82,7 @@ handler: async function (response) {
     )
 
     await axios.put(
-      `http://localhost:4000/booking/confirm/${booking._id}`,
+      `https://ev-station-1-tbha.onrender.com/booking/confirm/${booking._id}`,
       {},
       {
         headers: { Authorization: `Bearer ${token}` }
@@ -105,7 +105,7 @@ handler: async function (response) {
             const token = localStorage.getItem("token")
 
             await axios.post(
-              "http://localhost:4000/pay/pay",
+              "https://ev-station-1-tbha.onrender.com/pay/pay",
               {
                 bookingId: booking._id,
                 status: "failed"

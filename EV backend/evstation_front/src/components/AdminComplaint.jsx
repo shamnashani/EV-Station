@@ -7,7 +7,7 @@ const AdminComplaints = () => {
   const fetchComplaints = async () => {
     try {
       const token = localStorage.getItem("token")
-      const res = await axios.get("http://localhost:4000/com/all", {
+      const res = await axios.get("https://ev-station-1-tbha.onrender.com/com/all", {
         headers: { Authorization: `Bearer ${token}` }
       })
       setComplaints(res.data)

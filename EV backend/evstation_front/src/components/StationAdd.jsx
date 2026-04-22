@@ -57,7 +57,7 @@ const StationAdd = () => {
       const token = localStorage.getItem("token") // get auth token
 
       const res = await axios.post(
-        "http://localhost:4000/station/addstation",
+        "https://ev-station-1-tbha.onrender.com/station/addstation",
         {
           name,
           location,

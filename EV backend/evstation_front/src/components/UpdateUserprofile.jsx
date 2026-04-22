@@ -20,7 +20,7 @@ const UpdateUserprofile = () => {
       const token=localStorage.getItem('token')
 
       const res=await axios.get(
-        'http://localhost:4000/user/userprofile',
+        'https://ev-station-1-tbha.onrender.com/user/userprofile',
         { headers:{Authorization:`Bearer ${token}`} }
       )
 
@@ -29,7 +29,7 @@ const UpdateUserprofile = () => {
       setphone(res.data.phone)
 
       if(res.data.photo){
-        setPreview(`http://localhost:4000/${res.data.photo}`)
+        setPreview(`https://ev-station-1-tbha.onrender.com/${res.data.photo}`)
       }
     }
 
@@ -65,7 +65,7 @@ const UpdateUserprofile = () => {
       }
 
       await axios.post(
-        "http://localhost:4000/user/updateprofile",
+        "https://ev-station-1-tbha.onrender.com/user/updateprofile",
         formData,
         { headers:{Authorization:`Bearer ${token}`} }
       )

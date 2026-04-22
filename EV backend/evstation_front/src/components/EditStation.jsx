@@ -26,7 +26,7 @@ const EditStation = () => {
     try {
       const token=localStorage.getItem("token")
 
-      const res = await axios.get(`http://localhost:4000/admin/station/${id}`,
+      const res = await axios.get(`https://ev-station-1-tbha.onrender.com/admin/station/${id}`,
         {headers:{
           Authorization:`Bearer ${token}`
         }}
@@ -101,7 +101,7 @@ const EditStation = () => {
       const token = localStorage.getItem("token")
 
       await axios.put( // EDIT
-        `http://localhost:4000/admin/updateStation/${id}`,
+        `https://ev-station-1-tbha.onrender.com/admin/updateStation/${id}`,
         {
           name,
           location,

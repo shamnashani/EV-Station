@@ -13,7 +13,7 @@ const AdminComplaints = () => {
     try {
 
       const res = await axios.get(
-        "http://localhost:4000/admin/getcom",
+        "https://ev-station-1-tbha.onrender.com/admin/getcom",
         {
           headers: { Authorization: `Bearer ${token}` }
         }

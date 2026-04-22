@@ -23,7 +23,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/login/loginn",
+        "https://ev-station-1-tbha.onrender.com/login/loginn",
         { email, password }
       );
 
@@ -53,7 +53,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/login/forgot-password",
+        "https://ev-station-1-tbha.onrender.com/login/forgot-password",
         { email }
       );
       alert(res.data.message || "Password reset link sent to your email.");
