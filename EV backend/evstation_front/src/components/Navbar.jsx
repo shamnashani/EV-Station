@@ -41,7 +41,7 @@ function Navbar() {
     <nav className={`fixed w-full top-0 z-50 transition-all duration-500 
       ${scrolled ? "bg-[#02141C] shadow-lg" : "bg-transparent"}`}>
 
-      <div className="flex items-center px-4 md:px-6 py-4">
+      <div className="flex items-center justify-between px-4 md:px-6 py-4">
 
         <Link
           to={role === "admin" ? "/adminhome" : role === "user" ? "/userHome" : "/"}
