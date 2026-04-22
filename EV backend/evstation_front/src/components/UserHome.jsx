@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import Menu from "./Menu"
+
 import Footer from "./Footer"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import axios from "axios"
+import Navbar from "./Navbar"
 const UserHome = () => {
 
   const userName = localStorage.getItem("name") || "User"
@@ -106,12 +107,13 @@ const UserHome = () => {
 
   return (
     <>
-      <Menu />
+      
+      <Navbar></Navbar>
 
       <div className="min-h-screen bg-gray-100 pt-16">
 
         {/* HERO SECTION */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-700 text-white py-16">
+        <div className="bg-[#02141C] text-white py-16">
           <div className="max-w-6xl mx-auto px-6 text-center">
 
             <h1 className="text-4xl md:text-5xl font-bold" data-aos="fade-down">

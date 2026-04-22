@@ -8,11 +8,20 @@ function Navbar() {
   const location=useLocation()
 
   // ✅ Detect scroll
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 500);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+useEffect(() => {
+  const handleScroll = () => {
+    if (location.pathname === "/") {
+      setScrolled(window.scrollY > 500); 
+    } else {
+      setScrolled(true); // always solid for other pages
+    }
+  };
+
+  handleScroll()
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [location.pathname]);
 
   // ✅ READ TOKEN ON FIRST LOAD
   useEffect(() => {
@@ -47,7 +56,7 @@ function Navbar() {
           </Link>
 
           {!role ? (
-            // ❌ NOT LOGGED IN
+            // NOT LOGGED IN
             <Link
               to="/login"
               className="px-6 py-2 bg-[#00E5FF] text-[#02141c] rounded-full font-bold hover:bg-white">

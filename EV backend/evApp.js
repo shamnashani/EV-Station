@@ -13,19 +13,9 @@ const payment=require('./routes/payment')
 const complaint=require('./routes/complaint')
 const admin=require('./routes/admin')
 const Notification=require('./routes/notification')
-const helmet = require('helmet');
 
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-    },
-  },
-}));
-app.use(express.static('media'))
+
+app.use("/media", express.static("media"));
 app.use(express.urlencoded({
     extended:true
 }))

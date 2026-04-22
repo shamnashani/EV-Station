@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Menu from "./Menu";
 
 const BookingPage = () => {
 
@@ -123,6 +124,8 @@ const BookingPage = () => {
   };
 
   return (
+    <>
+    <Menu></Menu>
 
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f2027] to-[#2c5364] text-white">
 
@@ -212,6 +215,7 @@ const BookingPage = () => {
       </form>
 
     </div>
+    </>
   );
 };
 

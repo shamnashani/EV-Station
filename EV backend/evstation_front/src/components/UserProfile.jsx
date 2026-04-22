@@ -9,7 +9,6 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -23,6 +22,8 @@ const UserProfile = () => {
             headers: { Authorization: `Bearer ${token}` }
           }
         );
+        console.log(res.data)
+        
 
         setUser(res.data);
 
@@ -35,99 +36,84 @@ const UserProfile = () => {
     fetchProfile();
   }, []);
 
-  // loading screen
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#02141C] text-white">
-        <p className="animate-pulse">Loading profile...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <p>Loading profile...</p>
       </div>
     );
   }
+  console.log("PHOTO:", user.photo);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#02141C] via-[#062A36] to-[#02141C] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
 
-      {/* MAIN CARD */}
-      <div className="w-full max-w-3xl bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden text-white animate-fadeIn">
+      <div className="bg-white shadow-md rounded-xl w-full max-w-md p-6">
 
-        {/* TOP SECTION */}
-        <div className="relative h-40 bg-gradient-to-r from-cyan-500 to-blue-600">
+        {/* Profile Image */}
+        <div className="flex justify-center">
+          <img
+            src={
+              user.photo
+                ? `http://localhost:4000/media/${user.photo}`
+                : "https://via.placeholder.com/120"
+            }
+            alt="profile"
+            className="w-24 h-24 rounded-full object-cover border-2 border-cyan-500"
+          />
+        </div>
 
-          {/* Profile Image */}
-          <div className="absolute -bottom-14 left-1/2 transform -translate-x-1/2">
+        {/* Name */}
+        <h2 className="text-center text-xl font-semibold mt-4 text-gray-800">
+          {user.name}
+        </h2>
 
-            <img
-              src={
-                user.photo
-                  ? `http://localhost:4000/${user.photo}`
-                  : "https://via.placeholder.com/150"
-              }
-              alt="profile"
-              className="w-28 h-28 rounded-full border-4 border-white object-cover shadow-lg"
-            />
+        <p className="text-center text-gray-500">
+          {user.email}
+        </p>
 
+        {/* Details */}
+        <div className="mt-6 space-y-4">
+
+          <div>
+            <p className="text-sm text-gray-500">Phone</p>
+            <p className="font-medium text-gray-800">
+              {user.phone || "Not added"}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-sm text-gray-500">Address</p>
+            <p className="font-medium text-gray-800">
+              {user.address || "Not added"}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-sm text-gray-500">Joined</p>
+            <p className="font-medium text-gray-800">
+              {new Date(user.createdAt).toLocaleDateString()}
+            </p>
           </div>
 
         </div>
 
-        {/* DETAILS */}
-        <div className="pt-20 pb-8 px-6 text-center">
+        {/* Buttons */}
+        <div className="mt-6 flex gap-3">
 
-          {/* Name + Email */}
-          <h2 className="text-2xl font-semibold">
-            {user.name}
-          </h2>
+          <Link
+            to="/editprofile"
+            className="flex-1 bg-cyan-500 hover:bg-cyan-600 text-white py-2 rounded text-center font-medium"
+          >
+            Edit
+          </Link>
 
-          <p className="text-white/70">{user.email}</p>
-
-          <p className="text-xs text-white/50 mt-1">
-            Joined: {new Date(user.createdAt).toLocaleDateString()}
-          </p>
-
-          {/* STATUS */}
-          <div className="mt-3">
-            <span className="px-3 py-1 text-xs bg-green-500/20 text-green-400 rounded-full">
-              ● Active Account
-            </span>
-          </div>
-
-          {/* INFO CARDS */}
-          <div className="grid md:grid-cols-2 gap-5 mt-8 text-left">
-
-            <div className="bg-white/10 p-4 rounded-xl">
-              <p className="text-sm text-white/60">Phone</p>
-              <p className="font-medium">
-                {user.phone || <span className="text-white/40 italic">Not added</span>}
-              </p>
-            </div>
-
-            <div className="bg-white/10 p-4 rounded-xl">
-              <p className="text-sm text-white/60">Address</p>
-              <p className="font-medium">
-                {user.address || <span className="text-white/40 italic">Not added</span>}
-              </p>
-            </div>
-
-          </div>
-
-          {/* ACTION BUTTONS */}
-          <div className="flex flex-col md:flex-row gap-4 mt-8">
-
-            <Link
-              to="/editprofile"
-              className="flex-1 bg-cyan-500 hover:bg-cyan-600 py-2 rounded-lg text-center font-medium transition"
-            >
-              Edit Profile
-            </Link>
-
-            <Link
-              to="/userhome"
-              className="flex-1 border border-white/30 py-2 rounded-lg text-center hover:bg-white/10 transition"
-            >
-              Back to Dashboard
-            </Link>
-
-          </div>
+          <Link
+            to="/userhome"
+            className="flex-1 border border-gray-300 py-2 rounded text-center hover:bg-gray-100"
+          >
+            Back
+          </Link>
 
         </div>
 

@@ -7,83 +7,95 @@ const user = require('../model/login')
 const authMiddleware = require('../middleware/authMiddleware')
 
 
-// CREATE BOOKING 
+// CREATE BOOKING
 router.post('/booking', authMiddleware, async (req, res) => {
-    try {
-        const User = await user.findById(req.user.id)
-        if (!User) return res.status(401).json("Unauthorized")
+  try {
+    const User = await user.findById(req.user.id);
+    if (!User) return res.status(401).json({ message: "Unauthorized" });
 
-        const { stationId, date, timeSlot, vehicleNo } = req.body
+    const { stationId, date, timeSlot, vehicleNo } = req.body;
 
-        const Station = await station.findById(stationId)
-        if (!Station) return res.status(404).json({ message: "Station not found" })
+    const Station = await station.findById(stationId);
+    if (!Station) return res.status(404).json({ message: "Station not found" });
 
-        if (Station.availableSlots <= 0)
-            return res.status(400).json({ message: "No slots available" })
-
-
-        // 🔥 ✅ VALIDATION START
-
-        const now = new Date()
-        const selectedDate = new Date(date)
-
-        // ⛔ 1. Prevent past date
-        const today = new Date()
-        today.setHours(0, 0, 0, 0)
-
-        if (selectedDate < today) {
-            return res.status(400).json({ message: "Cannot book past date" })
-        }
-
-        // ⛔ 2. Prevent more than 30 days ahead
-        const daysDiff = (selectedDate - now) / (1000 * 60 * 60 * 24)
-
-        if (daysDiff > 30) {
-            return res.status(400).json({ message: "Booking allowed only within 30 days" })
-        }
-
-        // ⛔ 3. Prevent past time (only for today)
-        if (date === now.toISOString().split("T")[0]) {
-
-            const start = timeSlot.split("-")[0].trim()
-
-            let [time, modifier] = start.split(" ")
-            let [hours, minutes] = time.split(":")
-            hours = parseInt(hours)
-
-            // convert AM/PM
-            if (modifier === "PM" && hours !== 12) hours += 12
-            if (modifier === "AM" && hours === 12) hours = 0
-
-            const slotTime = new Date()
-            slotTime.setHours(hours)
-            slotTime.setMinutes(minutes)
-            slotTime.setSeconds(0)
-
-            if (slotTime < now) {
-                return res.status(400).json({ message: "Selected time already passed" })
-            }
-        }
-
-        // 🔥 ✅ VALIDATION END
-
-
-        const Booking = await booking.create({
-            user: User._id,
-            station: stationId,
-            date,
-            timeSlot,
-            vehicleNo,
-            amount: Station.priceperHour,
-            status: 'pending'
-        })
-
-        res.status(201).json(Booking)
-
-    } catch (err) {
-        res.status(500).json({ message: err.message })
+    if (Station.availableSlots <= 0) {
+      return res.status(400).json({ message: "No slots available" });
     }
-})
+
+
+    const now = new Date();
+    const selectedDate = new Date(date);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      return res.status(400).json({ message: "Cannot book past date" });
+    }
+
+    const daysDiff = (selectedDate - now) / (1000 * 60 * 60 * 24);
+    if (daysDiff > 30) {
+      return res.status(400).json({ message: "Booking allowed only within 30 days" });
+    }
+
+    if (date === now.toISOString().split("T")[0]) {
+
+      const start = timeSlot.split("-")[0].trim();
+
+      let [time, modifier] = start.split(" ");
+      let [hours, minutes] = time.split(":");
+      hours = parseInt(hours);
+
+      if (modifier === "PM" && hours !== 12) hours += 12;
+      if (modifier === "AM" && hours === 12) hours = 0;
+
+      const slotTime = new Date();
+      slotTime.setHours(hours);
+      slotTime.setMinutes(minutes);
+      slotTime.setSeconds(0);
+
+      if (slotTime < now) {
+        return res.status(400).json({ message: "Selected time already passed" });
+      }
+    }
+
+
+    const existingBooking = await booking.findOne({
+      station: stationId,
+      date,
+      timeSlot
+    });
+
+    if (existingBooking) {
+      return res.status(400).json({
+        message: "This slot is already booked"
+      });
+    }
+
+    const newBooking = await booking.create({
+      user: User._id,
+      station: stationId,
+      date,
+      timeSlot,
+      vehicleNo,
+      amount: Station.priceperHour,
+      status: "pending"
+    });
+
+    res.status(201).json(newBooking);
+
+  } catch (err) {
+
+    if (err.code === 11000) {
+      return res.status(400).json({
+        message: "This slot is already booked"
+      });
+    }
+
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 
 // CONFIRM BOOKING (REDUCE SLOT)
@@ -150,7 +162,7 @@ router.get('/Vbooking', authMiddleware, async (req, res) => {
     hours = parseInt(hours)
     minutes = parseInt(minutes)
 
-    // ✅ convert AM/PM to 24-hour
+    // convert AM/PM to 24-hour
     if (modifier === "PM" && hours !== 12) hours += 12
     if (modifier === "AM" && hours === 12) hours = 0
 
@@ -159,7 +171,7 @@ router.get('/Vbooking', authMiddleware, async (req, res) => {
     slotEnd.setMinutes(minutes)
     slotEnd.setSeconds(0)
 
-    // ✅ AUTO CANCEL
+    // AUTO CANCEL
     if (
         now > slotEnd &&
         (b.status === "pending" || b.status === "confirmed")
@@ -273,7 +285,7 @@ router.put('/complete/:id', authMiddleware, async (req, res) => {
         if (Book.status === "completed")
             return res.json({ message: "Already completed" })
 
-        // ✅ increase slot ONLY if confirmed
+        // increase slot ONLY if confirmed
         if (Book.status === "confirmed") {
             await station.findByIdAndUpdate(Book.station, {
                 $inc: { availableSlots: 1 }

@@ -1,7 +1,9 @@
 import React from "react";
 import { FaQuestion } from "react-icons/fa"
+import Menu from "./Menu";
 
 function Faqs() {
+  <Menu></Menu>
   return (
     <div className="min-h-screen bg-gray-50 px-6 py-12">
       <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center flex items-center justify-center gap-2">

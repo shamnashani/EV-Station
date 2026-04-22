@@ -20,34 +20,68 @@ const upload=multer({storage:storage})
 
 // ************user Signup**********************
 
-router.post('/signup',upload.single('photo'),async(req,res)=>{
-     try {
-    const {name,email,password,role,address,phone}=req.body
-      const photo=req.file ? req.file.filename : null;
-    if(!name||!email||!password) return res.json({message:"Missing field"})
-    const user=await login.findOne({email:email})
-    if(user) return res.json({message:"Email Exist"})
-    const salt=await bcrypt.genSalt(10)
-    const hashed=await bcrypt.hash(password,salt)
+router.post('/signup', upload.single('photo'), async (req, res) => {
+  try {
+    const { name, email, password, role, address, phone } = req.body;
+    const photo = req.file ? req.file.filename : null;
 
-        const newUser=new login({
-            name,
-            email,
-            password:hashed,
-            role: role || "user",
-            address,
-            phone,
-            photo
-        })
-         await newUser.save()
-        const token=jwt.sign({id:newUser._id,role:newUser.role},process.env.JWT_SECRET,{expiresIn:'1d'})
-        res.json({token,user:{id:newUser._id,name:newUser.name,email:newUser.email,role:newUser.role}})
-        } catch (error) {
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const normalizedEmail = email.toLowerCase();
+
+    const existingUser = await login.findOne({ email: normalizedEmail });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashed = await bcrypt.hash(password, salt);
+
+ 
+    const newUser = new login({
+      name,
+      email: normalizedEmail,
+      password: hashed,
+      role: role || "user",
+      address,
+      phone,
+      photo
+    });
+
+    await newUser.save();
+
+  
+    const token = jwt.sign(
+      { id: newUser._id, role: newUser.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    res.status(201).json({
+      message: "User registered successfully",
+      token,
+      user: {
+        id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        role: newUser.role
+      }
+    });
+
+  } catch (error) {
     console.error(error);
+
+    // 🔥 Handle duplicate key error (extra safety)
+    if (error.code === 11000) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
     res.status(500).json({ message: "Server error" });
   }
-
-})
+});
 
 // Login
 
