@@ -62,7 +62,7 @@ function Navbar() {
         </button>
 
         <div className={`
-        ml-auto absolute md:static top-full left-0 w-full md:w-auto
+        ml-auto absolute md:static top-full left-8 w-full md:w-auto
           bg-[#02141C] md:bg-transparent
           flex flex-col md:flex-row items-center
           gap-8 md:gap-7 text-sm font-medium text-gray-200
