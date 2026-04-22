@@ -4,7 +4,6 @@ const api = axios.create({
   baseURL: "https://ev-station-1-tbha.onrender.com"
 });
 
-// attach token automatically
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
