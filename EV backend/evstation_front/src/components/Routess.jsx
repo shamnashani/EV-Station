@@ -34,7 +34,7 @@ import Allpayments from './Allpayments'
 
 function Routess() {
   return (
-    <GoogleOAuthProvider clientId='153139542517-07pskqlbf1trn2jjo3onn5ihffkp2668.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId='941011610780-9i2pu8p3j1t14qlnbnniqgvsv3cp7cl4.apps.googleusercontent.com'>
      <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
