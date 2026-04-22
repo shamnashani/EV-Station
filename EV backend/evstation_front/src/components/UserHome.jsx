@@ -27,11 +27,7 @@ const UserHome = () => {
 
         const bookingRes = await api.get(
           "/booking/booking-count",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
+          {headers:{Authorization:`Bearer ${token}`}}
         )
 
 
@@ -61,7 +57,7 @@ const UserHome = () => {
 
 
           const res = await api.get(
-            `/nearby-stations?lat=${lat}&lng=${lng}`
+            `/station/nearby-stations?lat=${lat}&lng=${lng}`
           )
 
           setStationCount(res.data.count)
@@ -88,11 +84,11 @@ const UserHome = () => {
         const res = await api.get(
           "/booking/latest",
           {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
+            headers:{Authorization:`Bearer ${token}`}
           }
+          
         )
+        
 
         setLatestBooking(res.data)
         console.log(res.data)
