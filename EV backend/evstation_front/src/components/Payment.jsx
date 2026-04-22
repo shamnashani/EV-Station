@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import axios from "axios"
+import api from "./Api"
 
 const loadScript = (src) => {
   return new Promise((resolve) => {
@@ -32,8 +32,8 @@ const PaymentPage = () => {
     try {
       const token = localStorage.getItem("token")
 
-      const res = await axios.get(
-        `https://ev-station-1-tbha.onrender.com/booking/book/${state.bookingId}`,
+      const res = await api.get(
+        `/booking/book/${state.bookingId}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -69,8 +69,8 @@ handler: async function (response) {
     const token = localStorage.getItem("token")
 
     // payment
-    await axios.post(
-      "https://ev-station-1-tbha.onrender.com/pay/pay",
+    await api.post(
+      "/pay/pay",
       {
         bookingId: booking._id,
         paymentId: response.razorpay_payment_id,
@@ -81,8 +81,8 @@ handler: async function (response) {
       }
     )
 
-    await axios.put(
-      `https://ev-station-1-tbha.onrender.com/booking/confirm/${booking._id}`,
+    await api.put(
+      `/booking/confirm/${booking._id}`,
       {},
       {
         headers: { Authorization: `Bearer ${token}` }
@@ -104,8 +104,8 @@ handler: async function (response) {
           try {
             const token = localStorage.getItem("token")
 
-            await axios.post(
-              "https://ev-station-1-tbha.onrender.com/pay/pay",
+            await api.post(
+              "/pay/pay",
               {
                 bookingId: booking._id,
                 status: "failed"

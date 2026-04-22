@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GoogleLogin } from "@react-oauth/google";
+import api from "./Api";
 
 function Login() {
 
@@ -22,8 +22,8 @@ function Login() {
     e.preventDefault(); // prevent page refresh
 
     try {
-      const res = await axios.post(
-        "https://ev-station-1-tbha.onrender.com/login/loginn",
+      const res = await api.post(
+        "/login/loginn",
         { email, password }
       );
 
@@ -52,8 +52,8 @@ function Login() {
     if (!email) return;
 
     try {
-      const res = await axios.post(
-        "https://ev-station-1-tbha.onrender.com/login/forgot-password",
+      const res = await api.post(
+        "/login/forgot-password",
         { email }
       );
       alert(res.data.message || "Password reset link sent to your email.");
@@ -155,8 +155,8 @@ function Login() {
     <GoogleLogin
       onSuccess={async (credentialResponse) => {
         try {
-          const res = await axios.post(
-            "http://localhost:4000/login/google-login",
+          const res = await api.post(
+            "/login/google-login",
             { token: credentialResponse.credential }
           );
 

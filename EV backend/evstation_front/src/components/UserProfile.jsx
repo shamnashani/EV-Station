@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import api from "./Api";
 
 const UserProfile = () => {
 
@@ -16,8 +16,8 @@ const UserProfile = () => {
           return;
         }
 
-        const res = await axios.get(
-          "https://ev-station-1-tbha.onrender.com/user/userprofile",
+        const res = await api.get(
+          "/user/userprofile",
           {
             headers: { Authorization: `Bearer ${token}` }
           }

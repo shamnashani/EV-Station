@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
+import api from './Api'
 
 const MyComplaints = () => {
   const [complaints, setComplaints] = useState([])
@@ -8,7 +8,7 @@ const MyComplaints = () => {
   const fetchComplaints = async () => {
     try {
       const token = localStorage.getItem("token")
-      const res = await axios.get("https://ev-station-1-tbha.onrender.com/com/mycomplaints", {
+      const res = await api.get("/com/mycomplaints", {
         headers: { Authorization: `Bearer ${token}` }
       })
       setComplaints(res.data)
@@ -25,7 +25,7 @@ const MyComplaints = () => {
   const withdrawComplaint = async (id) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.put(`https://ev-station-1-tbha.onrender.com/com/withdraw/${id}`, {}, {
+      await api.put(`/com/withdraw/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       })
       alert("Complaint withdrawn successfully")

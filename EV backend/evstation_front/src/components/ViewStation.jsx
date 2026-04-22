@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import SearchBar from "./SearchBar"
+import api from "./Api"
 
 const StationList = () => {
 
@@ -18,7 +18,7 @@ const StationList = () => {
 
     const fetchStations = async () => {
 
-      const res = await axios.get("https://ev-station-1-tbha.onrender.com/station/Sview")
+      const res = await api.get("/station/Sview")
 
       // save stations to state
       setStations(res.data)

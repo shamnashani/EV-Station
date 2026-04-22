@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
 import Menu from "./Menu"
-
+import api from './Api'
 function Allpayments() {
 
   const [payments, setPayments] = useState([])
@@ -11,8 +10,8 @@ function Allpayments() {
       try {
         const token = localStorage.getItem("token")
 
-        const res = await axios.get(
-          "https://ev-station-1-tbha.onrender.com/admin/allpayments",
+        const res = await api.get(
+          "/admin/allpayments",
           {
             headers: { Authorization: `Bearer ${token}` }
           }

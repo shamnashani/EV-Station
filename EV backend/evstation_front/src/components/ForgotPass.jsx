@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "./Api";
 
 function ForgotPass() {
   const [email, setEmail] = useState("");
@@ -8,8 +8,8 @@ function ForgotPass() {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "https://ev-station-1-tbha.onrender.com/login/forgot-password",
+      const res = await api.post(
+        "/login/forgot-password",
         { email }
       );
 

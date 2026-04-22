@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import api from "./Api";
 
 function Signup() {
 
@@ -19,8 +19,8 @@ function Signup() {
     e.preventDefault();
 
     try {
-      await axios.post(
-        "https://ev-station-1-tbha.onrender.com/login/signup",
+      await api.post(
+        "/login/signup",
         { name, email, password });
 
       alert("Account created successfully 🎉");

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
 import { useNavigate, useLocation } from "react-router-dom"
+import api from './Api'
+
 
 const Complaint = () => {
   const [category, setCategory] = useState("")
@@ -24,8 +25,8 @@ const Complaint = () => {
     // ✅ 2. Fallback: Fetch latest booking
     const fetchLatestBooking = async () => {
       try {
-        const res = await axios.get(
-          "https://ev-station-1-tbha.onrender.com/booking/latest",
+        const res = await api.get(
+          "/booking/latest",
           {
             headers: { Authorization: `Bearer ${token}` }
           }
@@ -58,8 +59,8 @@ const Complaint = () => {
         return
       }
 
-      await axios.post(
-        "https://ev-station-1-tbha.onrender.com/com/create",
+      await api.post(
+        "/com/create",
         { category, message, stationName },
         {
           headers: { Authorization: `Bearer ${token}` }

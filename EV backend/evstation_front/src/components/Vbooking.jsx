@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Menu from "./Menu";
+import api from "./Api";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -24,7 +24,7 @@ const MyBookings = () => {
         return;
       }
 
-      const res = await axios.get("https://ev-station-1-tbha.onrender.com/booking/Vbooking", {
+      const res = await api.get("/booking/Vbooking", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -39,8 +39,8 @@ const MyBookings = () => {
   // CANCEL BOOKING
   const cancelBooking = async (id) => {
     try {
-      const res = await axios.put(
-        `https://ev-station-1-tbha.onrender.com/booking/cancel/${id}`,
+      const res = await api.put(
+        `/booking/cancel/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -63,8 +63,8 @@ const MyBookings = () => {
   // COMPLETE CHARGING
   const completeCharging = async (id) => {
     try {
-      await axios.put(
-        `https://ev-station-1-tbha.onrender.com/booking/complete/${id}`,
+      await api.put(
+        `/booking/complete/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

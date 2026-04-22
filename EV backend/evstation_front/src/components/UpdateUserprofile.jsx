@@ -1,6 +1,6 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import api from './Api'
 
 const UpdateUserprofile = () => {
 
@@ -19,8 +19,8 @@ const UpdateUserprofile = () => {
     const fetchdata=async()=>{
       const token=localStorage.getItem('token')
 
-      const res=await axios.get(
-        'https://ev-station-1-tbha.onrender.com/user/userprofile',
+      const res=await api.get(
+        '/user/userprofile',
         { headers:{Authorization:`Bearer ${token}`} }
       )
 
@@ -64,8 +64,8 @@ const UpdateUserprofile = () => {
         formData.append("photo", photo)
       }
 
-      await axios.post(
-        "https://ev-station-1-tbha.onrender.com/user/updateprofile",
+      await api.post(
+        "/user/updateprofile",
         formData,
         { headers:{Authorization:`Bearer ${token}`} }
       )

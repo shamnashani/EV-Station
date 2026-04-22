@@ -1,4 +1,4 @@
-import axios from "axios"
+import api from './Api'
 import React, { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom" // EDIT
 
@@ -26,7 +26,7 @@ const EditStation = () => {
     try {
       const token=localStorage.getItem("token")
 
-      const res = await axios.get(`https://ev-station-1-tbha.onrender.com/admin/station/${id}`,
+      const res = await api.get(`/admin/station/${id}`,
         {headers:{
           Authorization:`Bearer ${token}`
         }}
@@ -63,7 +63,7 @@ const EditStation = () => {
 
     try {
 
-      const res = await axios.get(
+      const res = await api.get(
         "https://nominatim.openstreetmap.org/search",
         {
           params: {
@@ -100,8 +100,8 @@ const EditStation = () => {
 
       const token = localStorage.getItem("token")
 
-      await axios.put( // EDIT
-        `https://ev-station-1-tbha.onrender.com/admin/updateStation/${id}`,
+      await api.put( // EDIT
+        `/admin/updateStation/${id}`,
         {
           name,
           location,

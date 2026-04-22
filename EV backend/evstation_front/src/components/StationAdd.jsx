@@ -1,7 +1,6 @@
-
-import axios from "axios"
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import api from "./Api"
 
 const StationAdd = () => {
 
@@ -22,7 +21,7 @@ const StationAdd = () => {
   const fetchlocation = async () => {
     try {
 
-      const res = await axios.get(
+      const res = await api.get(
         "https://nominatim.openstreetmap.org/search",
         {
           params: {
@@ -56,8 +55,8 @@ const StationAdd = () => {
 
       const token = localStorage.getItem("token") // get auth token
 
-      const res = await axios.post(
-        "https://ev-station-1-tbha.onrender.com/station/addstation",
+      const res = await api.post(
+        "/station/addstation",
         {
           name,
           location,

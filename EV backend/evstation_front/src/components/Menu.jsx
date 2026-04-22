@@ -9,7 +9,7 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "./Api";
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
@@ -29,7 +29,7 @@ const Menu = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await axios.get("https://ev-station-1-tbha.onrender.com/booking/Vbooking", {
+      const res = await api.get("/booking/Vbooking", {
         headers: { Authorization: `Bearer ${token}` },
       });
 

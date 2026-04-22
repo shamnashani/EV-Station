@@ -5,9 +5,7 @@ import Menu from "./Menu";
 import Footer from "./Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import axios from "axios";
-import { FaPlus } from "react-icons/fa"
-
+import api from './Api'
 const AdminHome = () => {
 
   // get admin name from localStorage
@@ -28,7 +26,7 @@ const AdminHome = () => {
 
         // get token from localStorage
       const token = localStorage.getItem("token");
-    const res=await axios.get('https://ev-station-1-tbha.onrender.com/admin/getAll',
+    const res=await api.get('/admin/getAll',
       {
         headers:{
           Authorization:`Bearer ${token}`

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
 import { FaCheckCircle } from "react-icons/fa"
+import api from "./Api"
+
 
 
 
@@ -22,8 +23,8 @@ const NotificationPage = () => {
 
       const token = localStorage.getItem("token")
 
-      const res = await axios.get(
-        "https://ev-station-1-tbha.onrender.com/booking/Vbooking",
+      const res = await api.get(
+        "/booking/Vbooking",
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -69,8 +70,8 @@ const NotificationPage = () => {
   const checkReminder = async () => {
   try {
 
-    const res = await axios.get(
-      "https://ev-station-1-tbha.onrender.com/booking/Vbooking",
+    const res = await api.get(
+      "/booking/Vbooking",
       {
         headers: { Authorization: `Bearer ${token}` }
       }

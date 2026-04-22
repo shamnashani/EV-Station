@@ -1,5 +1,6 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
+import api from './Api'
+
 
 function ManageUsers() {
 
@@ -11,8 +12,8 @@ function ManageUsers() {
 
       const token = localStorage.getItem("token")
 
-      const res = await axios.get(
-        "https://ev-station-1-tbha.onrender.com/admin/allUser",
+      const res = await api.get(
+        "/admin/allUser",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -38,8 +39,8 @@ function ManageUsers() {
 
     try {
 
-      await axios.put(
-        `https://ev-station-1-tbha.onrender.com/admin/active/${id}`,
+      await api.put(
+        `/admin/active/${id}`,
         {},
         {
           headers: {
@@ -62,8 +63,8 @@ function ManageUsers() {
 
     try {
 
-      await axios.put(
-        `https://ev-station-1-tbha.onrender.com/admin/inactive/${id}`,
+      await api.put(
+        `/admin/inactive/${id}`,
         {},
         {
           headers: {

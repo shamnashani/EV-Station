@@ -1,6 +1,5 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
-
+import api from './Api'
 function Allbookings() {
 
     const [bookings, setBookings] = useState([])
@@ -11,8 +10,8 @@ function Allbookings() {
 
             const token = localStorage.getItem("token")
 
-            const res = await axios.get(
-                "https://ev-station-1-tbha.onrender.com/admin/allBookings",
+            const res = await api.get(
+                "/admin/allBookings",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
-
+import api from './Api'
 const AdminComplaints = () => {
 
   const [complaints, setComplaints] = useState([])
@@ -12,8 +11,8 @@ const AdminComplaints = () => {
   const fetchComplaints = async () => {
     try {
 
-      const res = await axios.get(
-        "https://ev-station-1-tbha.onrender.com/admin/getcom",
+      const res = await api.get(
+        "/admin/getcom",
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -37,8 +36,8 @@ const AdminComplaints = () => {
 
     try {
 
-      await axios.put(
-        `http://localhost:4000/admin/replyComplaint/${id}`,
+      await api.put(
+        `/replyComplaint/${id}`,
         { reply: reply[id] },
         {
           headers: { Authorization: `Bearer ${token}` }

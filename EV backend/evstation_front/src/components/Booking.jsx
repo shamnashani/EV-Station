@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Menu from "./Menu";
+import api from './Api'
+
 
 const BookingPage = () => {
 
@@ -98,8 +99,8 @@ const BookingPage = () => {
 
     try {
 
-      const res = await axios.post(
-        "https://ev-station-1-tbha.onrender.com/booking/booking",
+      const res = await api.post(
+        "/booking/booking",
         bookingData,
         {
           headers: {

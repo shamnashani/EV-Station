@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "./Api";
 
 function ManageStation() {
 
@@ -17,8 +17,8 @@ function ManageStation() {
 
       const token = localStorage.getItem("token")
 
-      const res = await axios.get(
-        "https://ev-station-1-tbha.onrender.com/admin/allStation",
+      const res = await api.get(
+        "/admin/allStation",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -53,7 +53,7 @@ function ManageStation() {
 
     try {
 
-      await axios.delete(`https://ev-station-1-tbha.onrender.com/admin/dlt/${id}`,
+      await api.delete(`admin/dlt/${id}`,
         {headers:{
           Authorization:`Bearer ${token}`
         }}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
+import api from './Api'
 
 const AdminComplaints = () => {
   const [complaints, setComplaints] = useState([])
@@ -7,7 +7,7 @@ const AdminComplaints = () => {
   const fetchComplaints = async () => {
     try {
       const token = localStorage.getItem("token")
-      const res = await axios.get("https://ev-station-1-tbha.onrender.com/com/all", {
+      const res = await api.get("/com/all", {
         headers: { Authorization: `Bearer ${token}` }
       })
       setComplaints(res.data)
@@ -24,7 +24,7 @@ const AdminComplaints = () => {
   const updateStatus = async (id, status) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.put(`http://localhost:4000/com/update-status/${id}`, { status }, {
+      await api.put(`/com/update-status/${id}`, { status }, {
         headers: { Authorization: `Bearer ${token}` }
       })
       fetchComplaints()
@@ -37,7 +37,7 @@ const AdminComplaints = () => {
   const deleteComplaint = async (id) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://localhost:4000/com/delete/${id}`, {
+      await api.delete(`/com/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       fetchComplaints()

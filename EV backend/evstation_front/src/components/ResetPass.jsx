@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaEyeSlash,FaEye } from "react-icons/fa";
+import api from "./Api";
 
 function ResetPass() {
   const [password, setPassword] = useState("");
@@ -14,8 +14,8 @@ function ResetPass() {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        `https://ev-station-1-tbha.onrender.com/login/reset-password/${token}`,
+      const res = await api.post(
+        `/login/reset-password/${token}`,
         { password }
       );
 

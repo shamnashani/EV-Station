@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"
 import Footer from "./Footer"
 import AOS from "aos"
 import "aos/dist/aos.css"
-import axios from "axios"
 import Navbar from "./Navbar"
+import api from "./Api"
 const UserHome = () => {
 
   const userName = localStorage.getItem("name") || "User"
@@ -25,8 +25,8 @@ const UserHome = () => {
       try {
         const token = localStorage.getItem("token")
 
-        const bookingRes = await axios.get(
-          "https://ev-station-1-tbha.onrender.com/booking/booking-count",
+        const bookingRes = await api.get(
+          "/booking/booking-count",
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -60,8 +60,8 @@ const UserHome = () => {
 
 
 
-          const res = await axios.get(
-            `https://ev-station-1-tbha.onrender.com/booking/nearby-stations?lat=${lat}&lng=${lng}`
+          const res = await api.get(
+            `/nearby-stations?lat=${lat}&lng=${lng}`
           )
 
           setStationCount(res.data.count)
@@ -85,8 +85,8 @@ const UserHome = () => {
       try {
         const token = localStorage.getItem("token")
 
-        const res = await axios.get(
-          "https://ev-station-1-tbha.onrender.com/booking/latest",
+        const res = await api.get(
+          "/booking/latest",
           {
             headers: {
               Authorization: `Bearer ${token}`
